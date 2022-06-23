@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+        a {
+            padding: 20px;
+            border: 1px solid #ddd;
+            background: #eee;
+            border-radius: 5px;
+            display: inline-block;
+            text-align: center;
+            margin: 20px;
+            text-decoration: none;
+        }
+        a:hover {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1><%= htmlWebpackPlugin.options.title %></h1>
+    <div id="app">
+        <a href="/js-demo.html">js demo</a>
+        <a href="/vue2-demo.html">vue2 demo</a>
+        <a href="/vue3-demo.html">vue3 demo</a>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.24.0/axios.js"></script>
+
+
+</body>
+</html>

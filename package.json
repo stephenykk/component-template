@@ -1,16 +1,102 @@
 {
-  "name": "component-template",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "hello-component",
+  "version": "2.0.8",
+  "description": "a component develop template project",
+  "author": "panzj <panzj@yxt.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "module": "dist/main.js",
+  "typings": "types/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npm run dev:lib && npm run dev:demo",
+    "compile": "node build/compile.js",
+    "test": "jest",
+    "build:umd": "cross-env BABEL_ENV=umd webpack --env NODE_ENV=production --config webpack.config.umd.js",
+    "build:lib": "cross-env BABEL_ENV=test webpack --env NODE_ENV=production --config webpack.config.lib.js",
+    "build": "npm run compile && npm run build:lib && npm run build:umd",
+    "dev:lib": "npm run build:lib -- -w",
+    "dev:demo": "webpack-dev-server --env NODE_ENV=development --config webpack.config.demo.js",
+    "release": "npm run test && node build/updateVersion.js && npm run build && npm publish",
+    "release:beta": "npm run test && node build/updateVersion.js beta && npm run build && npm publish --tag test",
+    "release:stable": "npm run test && node build/updateVersion.js stable && npm run build && npm publish --tag stable",
+    "analyze": "webpack --env NODE_ENV=production --env report=true",
+    "updateVersion": "node build/updateVersion.js"
+  },
+  "directories": {
+    "lib": "src",
+    "test": "tests"
+  },
+  "files": [
+    "dist/index.js",
+    "dist/main.js",
+    "es",
+    "src",
+    "types"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.yunxuetang.com.cn/yxt-npm-internal/"
   },
   "repository": {
     "type": "git",
-    "url": "git@git-inner.yunxuetang.com.cn:panzj/component-template.git"
+    "url": "https://git-inner.yunxuetang.com.cn/panzj/yxt-biz-common.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/jest": "^27.0.1",
+    "@types/throttle-debounce": "^2.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.2",
+    "acorn": "^8.7.1",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.1.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-jest": "^27.0.6",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-preset-env": "^1.7.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.2.0",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.24.0",
+    "feconfig-webpack-plugin": "^0.2.9",
+    "html-webpack-plugin": "^5.3.2",
+    "jest": "^27.0.6",
+    "node-sass": "^6.0.1",
+    "oss-webpack-plugin": "^0.4.4",
+    "progress-bar-webpack-plugin": "^2.1.0",
+    "rollup": "^2.75.6",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.3.5",
+    "url-loader": "^4.1.1",
+    "vue-loader": "^15.9.8",
+    "vue-template-compiler": "^2.6.14",
+    "webpack": "^5.50.0",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0",
+    "webpack-merge": "^5.8.0",
+    "yxt-fe-center": "^0.2.10"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "throttle-debounce": "^3.0.1"
+  },
+  "peerDependencies": {
+    "axios": "^0.21.1"
+  }
 }

@@ -1,0 +1,16 @@
+/*
+ * 构建 umd 包
+ */
+
+const { merge } = require('webpack-merge');
+const { getCommon, resolve } = require('./webpack.config.common');
+
+module.exports = function (env) {
+  const config = merge(getCommon(env), {
+    entry: {
+      index: resolve('src/index.ts')
+    },
+  });
+
+  return config;
+};

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <%
+    var feConfig = htmlWebpackPlugin.options.feConfig;
+    var commonFiles = feConfig.commonFiles;
+    var snippets = feConfig.snippets;
+    var yxtBasePath = feConfig.packages.yxtPc.path; 
+    var yxtBizPath = feConfig.packages.yxtBizPc.path;
+
+    if (snippets && snippets.pcHeaderSnippets) {
+    %>
+        <%=snippets.pcHeaderSnippets%>
+    <% } %>
+
+    <!-- 加载基础组件的css -->
+    <% if (yxtBasePath) { %>
+        <link rel="stylesheet" type="text/css" href="<%=yxtBasePath%>lib/index.css"/>
+    <% } %>
+
+    <!-- 加载业务组件的css -->
+    <% if (yxtBizPath) { %>
+    <link rel="stylesheet" type="text/css" href="<%=yxtBizPath%>lib/index.css"/>
+    <% } %>
+
+    <!-- 加载运行时配置 -->
+    <% for (let item of feConfig.runtimeConfig) {
+        if(/^http/.test(item)) { %>
+            <script type="text/javascript" src="<%= item %>"></script>
+        <% } else { %>
+        <%= item %>
+        <% } %>
+    <% } %>
+
+    <!-- 链接bridgeJs.js -->
+    <% if (commonFiles.bridgeJs) { %>
+        <script type="text/javascript" src="<%= commonFiles.bridgeJs %>"></script>
+    <% } %>
+
+    <% if (commonFiles.vue) { %>
+        <script crossorigin="anonymous"  type="text/javascript" src="<%= commonFiles.vue %>"></script>
+    <% } %>
+    <!-- 链接基础组件库 -->
+    <% if (yxtBasePath) { %>
+    <script type="text/javascript" src="<%= yxtBasePath %>lib/index.js"></script>
+    <% } %>
+    <!-- 链接业务组件库 -->
+    <% if (yxtBizPath) { %>
+    <script type="text/javascript" src="<%= yxtBizPath %>lib/index.js"></script>
+    <% } %>
+
+</head>
+<body>
+    <h1><%= htmlWebpackPlugin.options.title %></h1>
+    <div id="app"></div>
+</body>
+</html>
